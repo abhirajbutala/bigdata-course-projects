@@ -71,8 +71,6 @@ def reducefn(author, words_dict_list):
 
     """
     result = {}
-    if author == "alberto pettorossi":
-        print "In Reduce Function for Alberto Pettorossi : vs contents: " + str(words_dict_list)
     for words_dict in words_dict_list:
         for word in words_dict.keys():
             if word in result.keys():
@@ -80,8 +78,6 @@ def reducefn(author, words_dict_list):
             else:
                 result[word] = words_dict[word]
 
-    if author == "alberto pettorossi":
-        print "\n\n\nIn Reduce Function for Alberto Pettorossi : result: " + str(result)
     return result
 
 
