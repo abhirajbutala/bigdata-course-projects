@@ -31,3 +31,32 @@ of a title term. For example, “program” and “program.” should both be co
 as the term ‘program’, and "map-reduce" should be taken as 'mapreduce'.
 Finally, stemming is not done, i.e. "algorithm" and "algorithms" are treated
 as separate terms.
+
+Project-2
+=========
+
+Wrote a simple python program to encode the Bayesian Network mentioned in the
+checked-in pdf file.
+
+After running the python program, an sqlite3 db called test.db is generated.
+
+Ran various SQL queries on the db to answer the questions asked in programming
+quiz.
+
+For example, the SQL query for the case where the person has Tuberculosis, given
+that he has visited Asia, is a Non Smoker, has no symptoms of Dyspneoa and has
+positive X-Ray, can be encoded as below:
+
+
+SELECT pta.tub, SUM(pa.p * pbs.p * pdeb.p * pelt.p * pls.p * ps.p * pta.p * pxe.p)
+    FROM pa,pbs,pdeb,pelt,pls,ps,pta,pxe
+    WHERE pa.asia = pta.asia
+        and ps.smoke = pls.smoke
+        and ps.smoke = pbs.smoke
+        and pls.lc = pelt.lc
+        and pta.tub = pelt.tub
+        and pelt.elt = pxe.elt
+        and pdeb.elt = pelt.elt
+        and pdeb.bron = pbs.bron
+        and pa.asia = "Y" and ps.smoke = "N" and pxe.xray = "Y" and pdeb.dys = "N"
+    GROUP BY pta.tub;
